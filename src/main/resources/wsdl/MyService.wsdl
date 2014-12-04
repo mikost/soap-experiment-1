@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://mikkoostlund.name/ns/experimental/soap-experiment-1"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             targetNamespace = "http://mikkoostlund.name/ns/experimental/soap-experiment-1"
+             name="MyService">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://mikkoostlund.name/ns/experimental/soap-experiment-1" schemaLocation="MyService.xsd"></xsd:import>
+        </xsd:schema>
+    </types>
+
+    <message name="sayHelloQWE">
+        <part name="parameters" element="tns:sayHello"></part>
+    </message>
+    <message name="methodNameResponse">
+        <part name="parameters" element="tns:methodNameResponse"></part>
+    </message>
+
+    <portType name="MyEndpoint">
+        <operation name="sayHello">
+            <input message="tns:sayHelloQWE"></input>
+            <output message="tns:methodNameResponse"></output>
+        </operation>
+    </portType>
+
+    <binding name="MyEndpointHttpBinding" type="tns:MyEndpoint">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"></soap:binding>
+        <operation name="sayHello">
+            <soap:operation soapAction=""></soap:operation>
+            <input>
+                <soap:body use="literal"></soap:body>
+            </input>
+            <output>
+                <soap:body use="literal"></soap:body>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="MyService">
+        <port name="MyHttpBoundEndpointPort" binding="tns:MyEndpointHttpBinding">
+            <soap:address location="WILL_BE_REPLACED_BY_PUBLISH_URL"></soap:address>
+        </port>
+    </service>
+</definitions>
