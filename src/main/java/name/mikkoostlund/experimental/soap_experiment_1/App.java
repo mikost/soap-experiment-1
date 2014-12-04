@@ -6,13 +6,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
+import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.ws.Endpoint;
+import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceException;
 
 import name.mikkoostlund.ns.experimental.soap_experiment_1.MyEndpoint;
-import name.mikkoostlund.ns.experimental.soap_experiment_1.MyService;
 
 public class App 
 {
@@ -21,16 +22,19 @@ public class App
 
 	public static void main( String[] args ) throws MalformedURLException
     {
+		// Publish web service
 		Endpoint ep = Endpoint.create(new MyEndpointImpl());
-
     	Source source = sourceFromResource(MY_SERVICE_XSD);
     	ep.setMetadata(Arrays.asList(source));
     	ep.publish(SERVICE_ADDRESS);
-    	
-    	URL wsdlLocation = new URL(SERVICE_ADDRESS + "?wsdl");
-		MyService myService = new MyService(wsdlLocation);
-		MyEndpoint myEndpoint = myService.getMyHttpBoundEndpointPort();
-		String message = null;
+
+    	// Send 'sayHello' message to web service and print the result/response.
+    	URL wsdlDocumentLocation = new URL(SERVICE_ADDRESS + "?wsdl");
+        QName serviceName = new QName("http://mikkoostlund.name/ns/experimental/soap-experiment-1", "MyService");
+        QName portName = new QName("http://mikkoostlund.name/ns/experimental/soap-experiment-1", "MyHttpBoundEndpointPort");
+        Service service = Service.create(wsdlDocumentLocation, serviceName);
+        MyEndpoint myEndpoint = service.getPort(portName, MyEndpoint.class);
+		String message;
 		try {
 			message = myEndpoint.sayHello();
 		} catch (WebServiceException e) {
