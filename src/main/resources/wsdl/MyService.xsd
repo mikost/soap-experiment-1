@@ -4,17 +4,28 @@
            version="1.0" 
            targetNamespace="http://mikkoostlund.name/ns/experimental/soap-experiment-1">
 
-    <xs:element name="sayHello" type="tns:sayHelloX"></xs:element>
+    <xs:element name="sayHello" type="tns:sayHello"></xs:element>
 
-    <xs:element name="methodNameResponse" type="tns:methodNameResponse"></xs:element>
+    <xs:element name="sayHelloResponse" type="tns:sayHelloResponse"></xs:element>
 
-    <xs:complexType name="sayHelloX">
-        <xs:sequence></xs:sequence>
-    </xs:complexType>
+    <xs:element name="sayHelloFault" type="tns:sayHelloFaultBean"></xs:element>
 
-    <xs:complexType name="methodNameResponse">
+    <xs:complexType name="sayHello">
         <xs:sequence>
-            <xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+        	<xs:element name="toWhom" type="xs:string" minOccurs="0"></xs:element>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:complexType name="sayHelloResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:string" minOccurs="0"></xs:element>
+         </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="sayHelloFaultBean">
+        <xs:sequence>
+        	<xs:element name="errorMessage" type="xs:string"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
 </xs:schema>

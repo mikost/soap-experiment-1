@@ -11,17 +11,21 @@
         </xsd:schema>
     </types>
 
-    <message name="sayHelloQWE">
+    <message name="sayHello">
         <part name="parameters" element="tns:sayHello"></part>
     </message>
-    <message name="methodNameResponse">
-        <part name="parameters" element="tns:methodNameResponse"></part>
+    <message name="sayHelloResponse">
+        <part name="parameters" element="tns:sayHelloResponse"></part>
+    </message>
+    <message name="sayHelloFault">
+        <part name="faultx" element="tns:sayHelloFault"/>
     </message>
 
     <portType name="MyEndpoint">
         <operation name="sayHello">
-            <input message="tns:sayHelloQWE"></input>
-            <output message="tns:methodNameResponse"></output>
+            <input message="tns:sayHello"></input>
+            <output message="tns:sayHelloResponse"></output>
+            <fault name="Xyz" message="tns:sayHelloFault"></fault>
         </operation>
     </portType>
 
@@ -35,6 +39,9 @@
             <output>
                 <soap:body use="literal"></soap:body>
             </output>
+            <fault name="Xyz">
+            	<soap:fault name="Blah" use="literal"/>
+            </fault>
         </operation>
     </binding>
 
@@ -43,4 +50,5 @@
             <soap:address location="WILL_BE_REPLACED_BY_PUBLISH_URL"></soap:address>
         </port>
     </service>
+
 </definitions>

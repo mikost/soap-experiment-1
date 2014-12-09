@@ -13,7 +13,9 @@ import javax.xml.ws.Endpoint;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceException;
 
+import name.mikkoostlund.ns.experimental.soap_experiment_1.SayHelloFault;
 import name.mikkoostlund.ns.experimental.soap_experiment_1.MyEndpoint;
+import name.mikkoostlund.ns.experimental.soap_experiment_1.SayHelloFaultBean;
 
 public class App 
 {
@@ -36,10 +38,13 @@ public class App
         MyEndpoint myEndpoint = service.getPort(portName, MyEndpoint.class);
 		String message;
 		try {
-			message = myEndpoint.sayHello();
-		} catch (WebServiceException e) {
+			message = myEndpoint.sayHello("Rune");
+		} catch (SayHelloFault e) {
+			SayHelloFaultBean faultBean = e.getFaultInfo();
+			message = "Fault returned: " + faultBean.getErrorMessage();
+		}catch (WebServiceException e) {
 			message = "Operation \"sayHello\" failed. Details: "+ e.getClass().getSimpleName() +": "+ e.getMessage();
-		}
+		} 
 		System.out.println(message);
     }
 
