@@ -27,10 +27,10 @@ public class MyEndpointImpl implements name.mikkoostlund.ns.experimental.soap_ex
 
     private static final Logger LOG = Logger.getLogger(MyEndpointImpl.class.getName());
 
-    public java.lang.String sayHello(String toWhom) throws SayHelloFault { 
+    public java.lang.String sayHello(Integer toWhom) throws SayHelloFault { 
         LOG.info("Executing operation sayHello");
         try {
-        	if (toWhom.equals("Mikko")) {
+        	if (toWhom.equals(7)) {
         		return "Jabadabadooo " + toWhom + "!!!";
         	} else {
 	            SayHelloFaultBean sayHelloFaultBean = new SayHelloFaultBean();
