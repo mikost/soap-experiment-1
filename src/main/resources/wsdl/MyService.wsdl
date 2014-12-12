@@ -47,7 +47,7 @@
 
     <service name="MyService">
         <port name="MyHttpBoundEndpointPort" binding="tns:MyEndpointHttpBinding">
-            <soap:address location="WILL_BE_REPLACED_BY_PUBLISH_URL"></soap:address>
+            <soap:address location="http://localhost:8080/svc/hello"></soap:address>
         </port>
     </service>
 
